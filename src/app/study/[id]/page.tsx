@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import { Brain, ArrowLeft, ArrowRight, RotateCcw, Check, X, BookOpen } from 'lucide-react'
 
 const DEMO_FLASHCARDS = [
@@ -12,7 +13,9 @@ const DEMO_FLASHCARDS = [
   { id: 5, front: 'Wat is een enzym?', back: 'Een biologische katalysator die chemische reacties versnelt in levende organismen.' },
 ]
 
-export default function StudyPage({ params }: { params: { id: string } }) {
+export default function StudyPage() {
+  const params = useParams()
+  const id = params.id as string
   const [mode, setMode] = useState<'select' | 'flashcard' | 'quiz'>('select')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
@@ -65,7 +68,7 @@ export default function StudyPage({ params }: { params: { id: string } }) {
       <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {mode === 'select' && (
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Set #{params.id}</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Set #{id}</h1>
             <p className="text-gray-600 mb-8">Kies een studiemodus</p>
             <div className="grid gap-4">
               <button
